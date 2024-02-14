@@ -56,6 +56,7 @@ public class Fragment_Show extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         //fshgjkfshgksfbfskhvsk
+        //egfyuegfeuw
         return view;
     }
 }

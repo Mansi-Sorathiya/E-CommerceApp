@@ -33,6 +33,7 @@ public class Show_Adapter extends RecyclerView.Adapter<Show_Adapter.Holder> {
         Holder holder = new Holder(view);
         //sdjbgvjkdsbgh
         //gdskjbdsh
+        //wjfbehwbfhjew
         return holder;
     }
 
