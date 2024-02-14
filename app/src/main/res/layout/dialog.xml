@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/uname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Product Name"
+            android:textSize="20dp" />
+        <EditText
+            android:id="@+id/udes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Product Description"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/uprize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Product Price"
+            android:textSize="20dp" />
+        <Button
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            android:textSize="30dp"
+            android:id="@+id/addd"/>
+
+        <ImageView
+            android:id="@+id/uimageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher"
+            />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rotate"/>
+
+    </LinearLayout>
+<!--    <com.airbnb.lottie.LottieAnimationView-->
+<!--        android:id="@+id/animation_wait"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:scaleType="fitCenter"-->
+<!--        app:lottie_autoPlay="true"-->
+<!--        app:lottie_rawRes="@raw/l1"-->
+<!--        app:lottie_speed="1.0"-->
+<!--        app:lottie_progress="0.5"-->
+<!--        app:lottie_renderMode="automatic"-->
+<!--        app:lottie_repeatCount="3"-->
+<!--        app:lottie_repeatMode="restart"-->
+<!--        app:lottie_loop="true"/>-->
+
+
+
+
+</RelativeLayout>
