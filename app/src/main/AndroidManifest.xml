@@ -7,10 +7,10 @@
         android:required="false" />
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -23,18 +23,19 @@
         android:theme="@style/Theme.RetrofitDemo"
         tools:targetApi="31">
         <activity
+            android:name=".Activities.TestActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activities.Login_Activity"
             android:exported="false" />
         <activity
             android:name=".Activities.RegisterActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".Navigation_Activity"
             android:exported="true"
             android:label="@string/title_activity_navigation"
-            android:theme="@style/Theme.RetrofitDemo.NoActionBar"></activity>
+            android:theme="@style/Theme.RetrofitDemo.NoActionBar" />
         <activity
             android:name=".Activities.Tabbed_View_Activity"
             android:exported="true"
@@ -42,7 +43,7 @@
             android:theme="@style/Theme.RetrofitDemo.NoActionBar" />
         <activity
             android:name=".MainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
