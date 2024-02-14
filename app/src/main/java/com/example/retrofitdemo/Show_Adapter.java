@@ -31,6 +31,8 @@ public class Show_Adapter extends RecyclerView.Adapter<Show_Adapter.Holder> {
     public Show_Adapter.Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.show_item, parent, false);
         Holder holder = new Holder(view);
+        //sdjbgvjkdsbgh
+        //gdskjbdsh
         return holder;
     }
 
