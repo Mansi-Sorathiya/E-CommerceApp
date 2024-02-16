@@ -3,7 +3,6 @@ package com.example.retrofitdemo.Activities;
 import static com.example.retrofitdemo.MainActivity.editor;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;

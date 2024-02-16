@@ -6,25 +6,35 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".Activities.Login_Activity">
+    tools:context=".Activities.Login_Activity"
+    android:background="@drawable/bg">
+
 
     <EditText
         android:id="@+id/email"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="40dp"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="20dp"
         android:hint="Email"
         android:textSize="30dp"
-        android:layout_gravity="center"/>
+        android:textColor="@color/black"
+        android:layout_gravity="center"
+        android:background="@drawable/login_bg"
+        android:paddingStart="10dp"/>
 
     <EditText
+        android:layout_marginTop="5dp"
         android:id="@+id/password"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="40dp"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="20dp"
         android:hint="Password"
         android:textSize="30dp"
-        android:layout_gravity="center"/>
+        android:textColor="@color/black"
+        android:layout_gravity="center"
+        android:background="@drawable/login_bg"
+        android:paddingStart="10dp"/>
+
 
     <Button
         android:id="@+id/login"
@@ -32,8 +42,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="login"
-        android:textSize="30dp"
-        android:layout_gravity="center"/>
+        android:textSize="20dp"
+        android:layout_gravity="center"
+        android:backgroundTint="@null"
+        android:background="@drawable/button_bg" />
 
     <TextView
         android:id="@+id/textview"

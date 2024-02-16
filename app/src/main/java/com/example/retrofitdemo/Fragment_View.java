@@ -112,7 +112,7 @@ public class Fragment_View extends Fragment {
                                 recyclerView.setLayoutManager(manager);
                                 recyclerView.setAdapter(adapter);
 
-                                Log.d("PPP", "getItemPosition: Data Name=" + list.get(4).getProName());
+                               // Log.d("PPP", "getItemPosition: Data Name=" + list.get(4).getProName());
                             }
                         }
                         else
