@@ -43,11 +43,9 @@ public class Navigation_Activity extends AppCompatActivity {
             R.drawable.j, R.drawable.k, R.drawable.l, R.drawable.m, R.drawable.n, R.drawable.o, R.drawable.p, R.drawable.q, R.drawable.r,
             R.drawable.s, R.drawable.t, R.drawable.u, R.drawable.v, R.drawable.w, R.drawable.x, R.drawable.y, R.drawable.z};
 
-    int[] colorArray = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.CYAN, Color.BLACK, Color.LTGRAY
+    int[] colorArray = {Color.RED, Color.GREEN, Color.YELLOW, Color.CYAN, Color.BLACK, Color.LTGRAY
             , Color.MAGENTA, Color.WHITE, Color.GRAY, Color.DKGRAY};
-//    , Color.RED, Color.GREEN, Color.BLUE,
-//    Color.YELLOW, Color.CYAN, Color.BLACK, Color.LTGRAY, Color.MAGENTA, Color.WHITE, Color.GRAY, Color.DKGRAY
-//            , Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +60,17 @@ public class Navigation_Activity extends AppCompatActivity {
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        View view = LayoutInflater.from(this).inflate(R.layout.nav_header_navigation, container, false);
-        navigationView.addHeaderView(view);
+
+        //View view = LayoutInflater.from(this).inflate(R.layout.nav_header_navigation, container, false);
+        View view=navigationView.getHeaderView(0);
         TextView email = view.findViewById(R.id.usergmail);
         ImageView imageView = view.findViewById(R.id.userimage);
+        TextView username=view.findViewById(R.id.username);
         CardView cardView = view.findViewById(R.id.bgcardview);
+
+        //For UserName
+        String name = preferences.getString("name", "");
+        username.setText(name);
 
         // For Email
         String useremail = preferences.getString("email", "");
@@ -86,6 +90,7 @@ public class Navigation_Activity extends AppCompatActivity {
         }
 
 
+        addFragment(new Fragment_View());
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

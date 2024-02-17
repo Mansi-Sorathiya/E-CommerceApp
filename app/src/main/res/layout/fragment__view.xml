@@ -1,10 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".Fragment_View">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <androidx.appcompat.widget.SearchView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/vsearchView"
+            android:backgroundTint="@null"
+            android:background="@drawable/serchview_corner"
+            android:layout_margin="5dp"
+            android:layout_weight="1"/>
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/sort"
+            android:layout_weight="7"
+            android:src="@drawable/sort_by_alpha_fill0_wght400_grad0_opsz24"
+            android:background="@drawable/serchview_corner"
+            android:layout_margin="5dp"/>
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -12,4 +35,4 @@
         android:layout_height="match_parent"
         tools:listitem="@layout/view_item"/>
 
-</FrameLayout>
+</LinearLayout>

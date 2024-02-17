@@ -24,11 +24,13 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -38,6 +40,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
+import com.example.retrofitdemo.Models.ProductDatum;
 import com.example.retrofitdemo.Models.Productdatalist;
 import com.example.retrofitdemo.Models.UpdateData;
 import com.example.retrofitdemo.Models.ViewData;
@@ -45,6 +48,9 @@ import com.example.retrofitdemo.Models.ViewData;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -65,13 +71,68 @@ public class Fragment_View extends Fragment {
     List<Productdatalist> list = new ArrayList();
     String uid;
     LottieAnimationView l1 ;
+    Productdatalist productdatalist;
+
+    int cnt=0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment__view, container, false);
         recyclerView = view.findViewById(R.id.recyclerView);
+        SearchView searchView=view.findViewById(R.id.vsearchView);
+        ImageButton sort=view.findViewById(R.id.sort);
+
         uid = preferences.getString("id", "0");
         getData();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                ArrayList<Productdatalist> filteredlist=new ArrayList<>();
+                for (Productdatalist item : list) {
+                    // checking if the entered string matched with any item of our recycler view.
+                    if (item.getProName().toLowerCase().contains(newText.toLowerCase())) {
+                        // if the item is matched we are
+                        // adding it to our filtered list.
+                        filteredlist.add(item);
+                    }
+                }
+                if (filteredlist.isEmpty()) {
+                    // if no item is added in filtered list we are
+                    // displaying a toast message as no data found.
+                    Toast.makeText(getActivity(), "No Data Found..", Toast.LENGTH_SHORT).show();
+                    adapter.filterList(filteredlist);
+                } else {
+                    // at last we are passing that filtered
+                    // list to our adapter class.
+                    adapter.filterList(filteredlist);
+                }
+                return true;
+            }
+        });
+        sort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//               Collections.sort(list,(lhs,rhs)->lhs.getProName().compareTo(rhs.getProName()));
+
+                if (cnt % 2 == 0) {
+                    Collections.sort(list, Comparator.comparing(Productdatalist::getProName));
+                } else {
+                    Collections.sort(list, Comparator.comparing(Productdatalist::getProName).reversed());
+                }
+                cnt++;
+                LinearLayoutManager manager = new LinearLayoutManager(getContext());
+                manager.setOrientation(LinearLayoutManager.VERTICAL);
+                recyclerView.setLayoutManager(manager);
+                recyclerView.setAdapter(adapter);
+
+            }
+        });
         return view;
     }
 
@@ -93,7 +154,7 @@ public class Fragment_View extends Fragment {
                                     String des = response.body().getProductdata().get(i).getProDes();
                                     String price = response.body().getProductdata().get(i).getProPrice();
                                     String image = response.body().getProductdata().get(i).getProImage();
-                                    Productdatalist productdatalist = new Productdatalist(id, uid, name, des, price, image);
+                                    productdatalist = new Productdatalist(id, uid, name, des, price, image);
                                     list.add(productdatalist);
 
                                 }

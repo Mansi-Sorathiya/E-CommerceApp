@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.SearchView;
@@ -16,8 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.retrofitdemo.Models.ShowallData;
 import com.example.retrofitdemo.Models.ProductDatum;
+import com.example.retrofitdemo.Models.Productdatalist;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -28,6 +32,7 @@ public class Fragment_Show extends Fragment {
 
     List<ProductDatum> productdata;
     Show_Adapter adapter;
+    int cnt=0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +45,7 @@ public class Fragment_Show extends Fragment {
         View view = inflater.inflate(R.layout.fragment__show, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.srecyclerView);
         SearchView searchView=view.findViewById(R.id.searchView);
+        ImageButton sort=view.findViewById(R.id.ssort);
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(Fragment_Show.this.getContext()));
@@ -66,6 +72,26 @@ public class Fragment_Show extends Fragment {
             @Override
             public void onFailure(Call<ShowallData> call, Throwable t) {
                 Log.e("TTT", "onFailure: " + t.getLocalizedMessage());
+            }
+        });
+
+        sort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                    Collections.sort(productdata, (lhs, rhs) -> lhs.getProName().compareTo(rhs.getProName()));
+
+                if (cnt % 2 == 0) {
+                    Collections.sort(productdata, Comparator.comparing(ProductDatum::getProName));
+                } else {
+                    Collections.sort(productdata, Comparator.comparing(ProductDatum::getProName).reversed());
+                }
+                cnt++;
+                LinearLayoutManager manager = new LinearLayoutManager(getContext());
+                manager.setOrientation(LinearLayoutManager.VERTICAL);
+                recyclerView.setLayoutManager(manager);
+                recyclerView.setAdapter(adapter);
+
             }
         });
 
