@@ -1,33 +1,18 @@
-
 package com.example.retrofitdemo.Models;
 
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import java.util.List;
 
-
-public class Productdatalist {
-
-    @SerializedName("ID")
-    @Expose
+public class CartItem {
     private String id;
-    @SerializedName("UID")
-    @Expose
     private String uid;
-    @SerializedName("PRO_NAME")
-    @Expose
     private String proName;
-    @SerializedName("PRO_DES")
-    @Expose
     private String proDes;
-    @SerializedName("PRO_PRICE")
-    @Expose
     private String proPrice;
-    @SerializedName("PRO_IMAGE")
-    @Expose
     private String proImage;
 
-    public Productdatalist(String id, String uid, String proName, String proDes, String proPrice, String proImage) {
+    public CartItem(String id, String uid, String proName, String proDes, String proPrice, String proImage) {
         this.id = id;
         this.uid = uid;
         this.proName = proName;
@@ -84,15 +69,5 @@ public class Productdatalist {
         this.proImage = proImage;
     }
 
-    @Override
-    public String toString() {
-        return "Productdatalist{" +
-                "id='" + id + '\'' +
-                ", uid='" + uid + '\'' +
-                ", proName='" + proName + '\'' +
-                ", proDes='" + proDes + '\'' +
-                ", proPrice='" + proPrice + '\'' +
-                ", proImage='" + proImage + '\'' +
-                '}';
-    }
+
 }

@@ -1,12 +1,10 @@
 
 package com.example.retrofitdemo.Models;
 
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-
-public class Productdatalist {
+public class Cartproductdatum {
 
     @SerializedName("ID")
     @Expose
@@ -27,7 +25,7 @@ public class Productdatalist {
     @Expose
     private String proImage;
 
-    public Productdatalist(String id, String uid, String proName, String proDes, String proPrice, String proImage) {
+    public Cartproductdatum(String id, String uid, String proName, String proDes, String proPrice, String proImage) {
         this.id = id;
         this.uid = uid;
         this.proName = proName;
@@ -84,15 +82,4 @@ public class Productdatalist {
         this.proImage = proImage;
     }
 
-    @Override
-    public String toString() {
-        return "Productdatalist{" +
-                "id='" + id + '\'' +
-                ", uid='" + uid + '\'' +
-                ", proName='" + proName + '\'' +
-                ", proDes='" + proDes + '\'' +
-                ", proPrice='" + proPrice + '\'' +
-                ", proImage='" + proImage + '\'' +
-                '}';
-    }
 }

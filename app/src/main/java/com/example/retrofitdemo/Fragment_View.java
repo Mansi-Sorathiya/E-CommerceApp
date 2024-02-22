@@ -1,16 +1,14 @@
 package com.example.retrofitdemo;
 
 import static com.example.retrofitdemo.MainActivity.preferences;
+import static com.example.retrofitdemo.MainActivity.list;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -40,24 +38,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
-import com.example.retrofitdemo.Models.ProductDatum;
 import com.example.retrofitdemo.Models.Productdatalist;
 import com.example.retrofitdemo.Models.UpdateData;
 import com.example.retrofitdemo.Models.ViewData;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Fragment_View extends Fragment {
+public class Fragment_View extends Fragment
+{
 
     private Bitmap bitmap;
     private String base64Image;
@@ -68,11 +63,11 @@ public class Fragment_View extends Fragment {
     private static final int PICK_IMAGE_GALLERY = 200;
     private static final int MY_CAMERA_REQUEST_CODE = 150;
     RecyclerView recyclerView;
-    List<Productdatalist> list = new ArrayList();
+
     String uid;
     LottieAnimationView l1 ;
     Productdatalist productdatalist;
-
+    CartItemSelected cartItemSelected;
     int cnt=0;
 
     @Override
@@ -82,15 +77,28 @@ public class Fragment_View extends Fragment {
         SearchView searchView=view.findViewById(R.id.vsearchView);
         ImageButton sort=view.findViewById(R.id.sort);
 
+        ImageView rotate1=view.findViewById(R.id.rotate1);
+
         uid = preferences.getString("id", "0");
+
+        cartItemSelected=new CartItemSelected() {
+            @Override
+            public void getCartItemSelected(int position) {
+//                Log.d("HHH", "getCartItemSelected: Position="+position);
+//                Intent intent=new Intent(getActivity(),Cart_Activity.class);
+//                intent.putExtra("pos",position);
+//                startActivity(intent);
+
+            }
+        };
         getData();
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
 
                 return true;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
                 ArrayList<Productdatalist> filteredlist=new ArrayList<>();
@@ -126,6 +134,7 @@ public class Fragment_View extends Fragment {
                     Collections.sort(list, Comparator.comparing(Productdatalist::getProName).reversed());
                 }
                 cnt++;
+
                 LinearLayoutManager manager = new LinearLayoutManager(getContext());
                 manager.setOrientation(LinearLayoutManager.VERTICAL);
                 recyclerView.setLayoutManager(manager);
@@ -146,7 +155,9 @@ public class Fragment_View extends Fragment {
                         Log.d("MMM", "onResponse: Result=" + response.body().getResult());
                         if (response.body().getConnection() == 1) {
                             if (response.body().getResult() == 1) {
+
                                 Toast.makeText(getActivity(), "ProductData Available", Toast.LENGTH_LONG).show();
+
                                 for (int i = 0; i < response.body().getProductdata().size(); i++) {
                                     String id = response.body().getProductdata().get(i).getId();
                                     String uid = response.body().getProductdata().get(i).getUid();
@@ -156,9 +167,8 @@ public class Fragment_View extends Fragment {
                                     String image = response.body().getProductdata().get(i).getProImage();
                                     productdatalist = new Productdatalist(id, uid, name, des, price, image);
                                     list.add(productdatalist);
-
                                 }
-                                adapter = new View_Adapter(Fragment_View.this, list, new OnItemSelected() {
+                                adapter = new View_Adapter(Fragment_View.this, list, cartItemSelected,new OnItemSelected() {
                                     @Override
                                     public void getItemPosition(int position) {
                                         Log.d("PPP", "getItemPosition: position=" + position);
@@ -167,29 +177,24 @@ public class Fragment_View extends Fragment {
                                         CreateUpdate(position);
 
                                     }
+
                                 });
                                 LinearLayoutManager manager = new LinearLayoutManager(getContext());
                                 manager.setOrientation(LinearLayoutManager.VERTICAL);
                                 recyclerView.setLayoutManager(manager);
                                 recyclerView.setAdapter(adapter);
 
-                               // Log.d("PPP", "getItemPosition: Data Name=" + list.get(4).getProName());
+                                // Log.d("PPP", "getItemPosition: Data Name=" + list.get(4).getProName());
                             }
-                        }
-                        else
-                        {
+                        } else {
                             Toast.makeText(getActivity(), "Something went wrong...", Toast.LENGTH_LONG).show();
                         }
-
                     }
-
                     @Override
                     public void onFailure(Call<ViewData> call, Throwable t) {
                         Log.e("MMM", "onFailure: Error=" + t.getLocalizedMessage());
                     }
                 });
-
-
     }
 
     private void CreateUpdate(int position) {
@@ -360,5 +365,6 @@ public class Fragment_View extends Fragment {
             }
         }
     }
+
 
 }

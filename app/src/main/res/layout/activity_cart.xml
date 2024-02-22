@@ -7,8 +7,8 @@
     android:orientation="vertical"
     tools:context=".Cart_Activity">
 
-    <GridView
-        android:id="@+id/gridview"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/cart_item"

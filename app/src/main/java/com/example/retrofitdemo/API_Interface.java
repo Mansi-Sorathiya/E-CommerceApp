@@ -42,4 +42,12 @@ public interface API_Interface
 
     @GET("showallproduct.php")
     Call<ShowallData> getUserProducts();
+
+    @FormUrlEncoded
+    @POST("CartProduct.php")
+    Call<ProductData> cartUser(@Field("userid") String userid,@Field("pname") String pname,@Field("pdes") String description,@Field("pprize") String price,@Field("productimage")String img);
+
+    @FormUrlEncoded
+    @POST("CartviewProduct.php")
+    Call<CartViewData> cartviewUser(@Field("userid") String userid);
 }

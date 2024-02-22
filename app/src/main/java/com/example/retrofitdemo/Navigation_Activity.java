@@ -2,10 +2,12 @@ package com.example.retrofitdemo;
 
 import static com.example.retrofitdemo.MainActivity.editor;
 import static com.example.retrofitdemo.MainActivity.preferences;
+import static com.example.retrofitdemo.MainActivity.list;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -26,10 +29,22 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.retrofitdemo.Models.Productdatalist;
+import com.example.retrofitdemo.Models.Cartproductdatum;
+import com.example.retrofitdemo.Models.CartViewData;
 import com.google.android.material.navigation.NavigationView;
 
+import com.example.retrofitdemo.Models.CartItem;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class Navigation_Activity extends AppCompatActivity {
@@ -38,6 +53,8 @@ public class Navigation_Activity extends AppCompatActivity {
     NavigationView navigationView;
     DrawerLayout drawerLayout;
     ViewGroup container;
+    ImageView cartImage;
+
 
     int[] img = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d, R.drawable.e, R.drawable.f, R.drawable.g, R.drawable.h, R.drawable.i,
             R.drawable.j, R.drawable.k, R.drawable.l, R.drawable.m, R.drawable.n, R.drawable.o, R.drawable.p, R.drawable.q, R.drawable.r,
@@ -55,10 +72,21 @@ public class Navigation_Activity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         drawerLayout = findViewById(R.id.drawer_layout);
 
+        cartImage=findViewById(R.id.cartimage);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(Navigation_Activity.this, drawerLayout, toolbar, R.string.OpenDrawer, R.string.CloseDrawer);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
+
+        cartImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Navigation_Activity.this, Cart_Activity.class);
+                startActivity(intent);
+            }
+        });
+
 
 
         //View view = LayoutInflater.from(this).inflate(R.layout.nav_header_navigation, container, false);

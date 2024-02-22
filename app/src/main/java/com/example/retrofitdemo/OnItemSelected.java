@@ -4,4 +4,5 @@ public interface OnItemSelected
 {
     public void getItemPosition(int position);
 
+
 }

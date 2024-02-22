@@ -96,6 +96,8 @@ public class Fragment_Add extends Fragment {
                                 if (response.body().getConnection() == 1) {
                                     if (response.body().getProductaddd() == 1) {
                                         Toast.makeText(getActivity(), "Product Add Successfully", Toast.LENGTH_LONG).show();
+//                                        Intent intent=new Intent(Fragment_Add.this.getContext(),Fragment_View.class);
+//                                        startActivity(intent);
 
                                     } else if (response.body().getProductaddd() == 2) {
                                         Toast.makeText(getActivity(), "Already Product Add", Toast.LENGTH_LONG).show();

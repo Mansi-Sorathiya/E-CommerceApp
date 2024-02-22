@@ -1,12 +1,12 @@
 package com.example.retrofitdemo;
 
+import static com.example.retrofitdemo.MainActivity.list;
+import static com.example.retrofitdemo.MainActivity.preferences;
+
 import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -18,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.retrofitdemo.Models.CartItem;
+import com.example.retrofitdemo.Models.ProductData;
 import com.example.retrofitdemo.Models.Productdatalist;
 
 import java.util.ArrayList;
@@ -29,7 +31,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class View_Adapter extends RecyclerView.Adapter<View_Adapter.Holder>  {
+public class View_Adapter extends RecyclerView.Adapter<View_Adapter.Holder> {
     Fragment_View fragmentView;
     List<Productdatalist> list;
     private static final int PICK_IMAGE_CAMERA = 100;
@@ -38,11 +40,13 @@ public class View_Adapter extends RecyclerView.Adapter<View_Adapter.Holder>  {
     private int requestCode = 150;
     OnItemSelected onItemSelected;
     Cart_Activity cartActivity;
+    CartItemSelected cartItemSelected;
 
-    public View_Adapter(Fragment_View fragmentView, List list, OnItemSelected onItemSelected) {
+    public View_Adapter(Fragment_View fragmentView, List list, CartItemSelected cartItemSelected, OnItemSelected onItemSelected) {
         this.fragmentView = fragmentView;
         this.list = list;
-        this.onItemSelected=onItemSelected;
+        this.onItemSelected = onItemSelected;
+        this.cartItemSelected = cartItemSelected;
     }
 
     public View_Adapter(Fragment_View fragmentView, List<Productdatalist> list) {
@@ -118,11 +122,37 @@ public class View_Adapter extends RecyclerView.Adapter<View_Adapter.Holder>  {
             @Override
             public void onClick(View view) {
 
+                String uid;
+                uid = preferences.getString("id", "0");
 
+                Instance_Class.callAPI()
+                        .cartUser(uid, holder.pname.getText().toString(), holder.pdes.getText().toString(), holder.price.getText().toString(), holder.imageView.toString())
+                        .enqueue(new Callback<ProductData>() {
+                            @Override
+                            public void onResponse(Call<ProductData> call, Response<ProductData> response) {
+                                Log.d("MMM", "onResponse: Data=" + response.body().getConnection());
+                                Log.d("MMM", "onResponse: Productadd=" + response.body().getProductaddd());
+                                if (response.body().getConnection() == 1) {
+                                    if (response.body().getProductaddd() == 1) {
+
+                                        Toast.makeText(fragmentView.getContext(), "Added Cart", Toast.LENGTH_LONG).show();
+                                    }
+                                } else {
+                                    Toast.makeText(fragmentView.getContext(), "Something went wrong...", Toast.LENGTH_LONG).show();
+                                }
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<ProductData> call, Throwable t) {
+                                Log.e("MMM", "onFailure: Error=" + t.getLocalizedMessage());
+                                Toast.makeText(fragmentView.getContext(), "Failed to communicate with the server", Toast.LENGTH_LONG).show();
+
+                            }
+                        });
 
             }
         });
-
 
     }
 
@@ -133,14 +163,15 @@ public class View_Adapter extends RecyclerView.Adapter<View_Adapter.Holder>  {
     }
 
     public void filterList(ArrayList<Productdatalist> filteredlist) {
-        this.list=filteredlist;
+        this.list = filteredlist;
         notifyDataSetChanged();
     }
+
 
     public class Holder extends RecyclerView.ViewHolder {
         TextView pname, pdes, price;
         ImageView imageView;
-        ImageView optionMenu,cart;
+        ImageView optionMenu, cart;
 
         public Holder(@NonNull View itemView) {
             super(itemView);
@@ -149,7 +180,7 @@ public class View_Adapter extends RecyclerView.Adapter<View_Adapter.Holder>  {
             price = itemView.findViewById(R.id.pprice);
             imageView = itemView.findViewById(R.id.imageView);
             optionMenu = itemView.findViewById(R.id.optionMenu);
-            cart=itemView.findViewById(R.id.cart);
+            cart = itemView.findViewById(R.id.cart);
 
         }
     }
