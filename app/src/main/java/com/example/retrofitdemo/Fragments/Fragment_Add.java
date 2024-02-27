@@ -1,8 +1,5 @@
-package com.example.retrofitdemo;
+package com.example.retrofitdemo.Fragments;
 
-import static android.app.Activity.RESULT_OK;
-
-import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,21 +17,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.content.pm.PackageManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 
+import com.example.retrofitdemo.Instance_Class;
 import com.example.retrofitdemo.Models.ProductData;
+import com.example.retrofitdemo.R;
 
-import static com.example.retrofitdemo.MainActivity.preferences;
+import static com.example.retrofitdemo.Activities.MainActivity.preferences;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,8 +44,9 @@ public class Fragment_Add extends Fragment {
     private static final int MY_CAMERA_REQUEST_CODE = 150;
     EditText pname, pdescription, pprize;
     ImageView imageView;
-    private Bitmap bitmap;
+
     private int requestCode = 150;
+    private Bitmap bitmap;
     private String base64Image;
     final CharSequence[] items = {"Camera", "Gallery"};
     String uid;
@@ -87,7 +85,8 @@ public class Fragment_Add extends Fragment {
                 convertImage();
 //                Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_SHORT).show();
                 Instance_Class.callAPI()
-                        .productUser(uid, pname.getText().toString(), pdescription.getText().toString(), pprize.getText().toString(), base64Image)
+                        .productUser(uid, pname.getText().toString(), pdescription.getText().toString(), pprize.getText().toString(),
+                                base64Image)
                         .enqueue(new Callback<ProductData>() {
                             @Override
                             public void onResponse(Call<ProductData> call, Response<ProductData> response) {
@@ -96,8 +95,17 @@ public class Fragment_Add extends Fragment {
                                 if (response.body().getConnection() == 1) {
                                     if (response.body().getProductaddd() == 1) {
                                         Toast.makeText(getActivity(), "Product Add Successfully", Toast.LENGTH_LONG).show();
-//                                        Intent intent=new Intent(Fragment_Add.this.getContext(),Fragment_View.class);
-//                                        startActivity(intent);
+
+                                        Fragment_View fragmentView = new Fragment_View();
+                                        FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+                                        fragmentTransaction.replace(R.id.nav_host_fragment_content_navigation, fragmentView);
+                                        fragmentTransaction.addToBackStack(null);
+                                        fragmentTransaction.commit();
+
+//                                        pname.setText("");
+//                                        pdescription.setText("");
+//                                        pprize.setText("");
+//                                        imageView.setImageResource(R.drawable.ic_launcher_background);
 
                                     } else if (response.body().getProductaddd() == 2) {
                                         Toast.makeText(getActivity(), "Already Product Add", Toast.LENGTH_LONG).show();
@@ -117,6 +125,8 @@ public class Fragment_Add extends Fragment {
 
                             }
                         });
+
+
             }
         });
         return view;

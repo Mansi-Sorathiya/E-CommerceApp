@@ -1,4 +1,4 @@
-package com.example.retrofitdemo;
+package com.example.retrofitdemo.Fragments;
 
 import android.os.Bundle;
 
@@ -15,9 +15,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.retrofitdemo.Instance_Class;
 import com.example.retrofitdemo.Models.ShowallData;
 import com.example.retrofitdemo.Models.ProductDatum;
-import com.example.retrofitdemo.Models.Productdatalist;
+import com.example.retrofitdemo.R;
+import com.example.retrofitdemo.Adapters.Show_Adapter;
 
 import java.util.ArrayList;
 import java.util.Collections;

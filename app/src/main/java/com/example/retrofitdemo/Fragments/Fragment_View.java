@@ -1,7 +1,7 @@
-package com.example.retrofitdemo;
+package com.example.retrofitdemo.Fragments;
 
-import static com.example.retrofitdemo.MainActivity.preferences;
-import static com.example.retrofitdemo.MainActivity.list;
+import static com.example.retrofitdemo.Activities.MainActivity.preferences;
+import static com.example.retrofitdemo.Activities.MainActivity.list;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -38,9 +38,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
+import com.example.retrofitdemo.Instance_Class;
 import com.example.retrofitdemo.Models.Productdatalist;
 import com.example.retrofitdemo.Models.UpdateData;
 import com.example.retrofitdemo.Models.ViewData;
+import com.example.retrofitdemo.OnItemSelected;
+import com.example.retrofitdemo.R;
+import com.example.retrofitdemo.Adapters.View_Adapter;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -67,7 +71,6 @@ public class Fragment_View extends Fragment
     String uid;
     LottieAnimationView l1 ;
     Productdatalist productdatalist;
-    CartItemSelected cartItemSelected;
     int cnt=0;
 
     @Override
@@ -81,16 +84,6 @@ public class Fragment_View extends Fragment
 
         uid = preferences.getString("id", "0");
 
-        cartItemSelected=new CartItemSelected() {
-            @Override
-            public void getCartItemSelected(int position) {
-//                Log.d("HHH", "getCartItemSelected: Position="+position);
-//                Intent intent=new Intent(getActivity(),Cart_Activity.class);
-//                intent.putExtra("pos",position);
-//                startActivity(intent);
-
-            }
-        };
         getData();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -168,7 +161,7 @@ public class Fragment_View extends Fragment
                                     productdatalist = new Productdatalist(id, uid, name, des, price, image);
                                     list.add(productdatalist);
                                 }
-                                adapter = new View_Adapter(Fragment_View.this, list, cartItemSelected,new OnItemSelected() {
+                                adapter = new View_Adapter(Fragment_View.this, list,new OnItemSelected() {
                                     @Override
                                     public void getItemPosition(int position) {
                                         Log.d("PPP", "getItemPosition: position=" + position);

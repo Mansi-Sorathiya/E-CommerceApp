@@ -1,4 +1,4 @@
-package com.example.retrofitdemo;
+package com.example.retrofitdemo.Adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.retrofitdemo.Fragments.Fragment_Show;
 import com.example.retrofitdemo.Models.ProductDatum;
+import com.example.retrofitdemo.R;
 
 import java.util.ArrayList;
 import java.util.List;

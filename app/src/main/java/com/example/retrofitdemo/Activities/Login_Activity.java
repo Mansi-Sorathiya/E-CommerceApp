@@ -1,6 +1,6 @@
 package com.example.retrofitdemo.Activities;
 
-import static com.example.retrofitdemo.MainActivity.editor;
+import static com.example.retrofitdemo.Activities.MainActivity.editor;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -56,7 +56,7 @@ public class Login_Activity extends AppCompatActivity {
                                 editor.putString("email", response.body().getUserdata().getEmail());
                                 editor.putString("password", response.body().getUserdata().getPassword());
                                 editor.commit();
-                                Intent intent = new Intent(Login_Activity.this, com.example.retrofitdemo.Navigation_Activity.class);
+                                Intent intent = new Intent(Login_Activity.this, Navigation_Activity.class);
                                 startActivity(intent);
 
 
@@ -79,7 +79,7 @@ public class Login_Activity extends AppCompatActivity {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Login_Activity.this, RegisterActivity.class);
+                Intent intent = new Intent(Login_Activity.this, Register_Activity.class);
                 startActivity(intent);
             }
         });

@@ -1,22 +1,18 @@
-package com.example.retrofitdemo;
+package com.example.retrofitdemo.Activities;
 
-import static com.example.retrofitdemo.MainActivity.editor;
-import static com.example.retrofitdemo.MainActivity.preferences;
-import static com.example.retrofitdemo.MainActivity.list;
+import static com.example.retrofitdemo.Activities.MainActivity.editor;
+import static com.example.retrofitdemo.Activities.MainActivity.preferences;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -29,22 +25,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.retrofitdemo.Models.Productdatalist;
-import com.example.retrofitdemo.Models.Cartproductdatum;
-import com.example.retrofitdemo.Models.CartViewData;
+import com.example.retrofitdemo.Fragments.Fragment_Add;
+import com.example.retrofitdemo.Fragments.Fragment_Show;
+import com.example.retrofitdemo.Fragments.Fragment_View;
+import com.example.retrofitdemo.R;
 import com.google.android.material.navigation.NavigationView;
 
-import com.example.retrofitdemo.Models.CartItem;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class Navigation_Activity extends AppCompatActivity {
@@ -97,11 +85,11 @@ public class Navigation_Activity extends AppCompatActivity {
         CardView cardView = view.findViewById(R.id.bgcardview);
 
         //For UserName
-        String name = preferences.getString("name", "");
+        String name = preferences.getString("name", "default");
         username.setText(name);
 
         // For Email
-        String useremail = preferences.getString("email", "");
+        String useremail = preferences.getString("email", "default");
         email.setText(useremail);
 
         // For UserImage
